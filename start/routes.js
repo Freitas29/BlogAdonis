@@ -19,3 +19,6 @@ const Route = use('Route')
 Route.get('/', () => {
   return { greeting: 'Hello world in JSON' }
 })
+
+Route.resource('users', 'AuthenticateController').only(['store','update'])
+Route.post('users/login', 'AuthenticateController.login')
