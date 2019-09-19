@@ -22,3 +22,4 @@ Route.get('/', () => {
 
 Route.resource('users', 'AuthenticateController').only(['store','update'])
 Route.post('users/login', 'AuthenticateController.login')
+Route.resource('posts', 'PostController').apiOnly().middleware('auth')
