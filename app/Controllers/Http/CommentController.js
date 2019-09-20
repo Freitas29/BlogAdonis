@@ -4,6 +4,11 @@
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
+const Post = use('App/Models/Post')
+const User = use('App/Models/User')
+const Comment = use('App/Models/Comment')
+const Database= use('Database')
+
 /**
  * Resourceful controller for interacting with comments
  */
@@ -17,7 +22,10 @@ class CommentController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async index ({ request, response, view }) {
+  async index ({ request, response, view, params }) {
+    const comments = await Database.from('comments').where({post_id: params.id})
+
+    return comments
   }
 
   /**
@@ -29,8 +37,6 @@ class CommentController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async create ({ request, response, view }) {
-  }
 
   /**
    * Create/save a new comment.
@@ -40,7 +46,14 @@ class CommentController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async store ({ request, response }) {
+  async store ({ request, response, auth }) {
+    const data = request.only(['description', 'id'])
+
+    const user = auth.user.id
+
+    const comment = await Comment.create({description: data.description, post_id: data.id, user_id: user})
+
+    return comment
   }
 
   /**
