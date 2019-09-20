@@ -20,7 +20,7 @@ class PostController {
    * @param {View} ctx.view
    */
   async index ({ request, response, view }) {
-    const posts = Post.all()
+    const posts = Post.query().with('image').fetch()
     return posts
   }
 

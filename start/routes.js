@@ -23,3 +23,5 @@ Route.get('/', () => {
 Route.resource('users', 'AuthenticateController').only(['store','update'])
 Route.post('users/login', 'AuthenticateController.login')
 Route.resource('posts', 'PostController').apiOnly().middleware('auth')
+Route.post('posts/:id/images', 'ImageController.store').middleware('auth')
+Route.get('images/:path', 'ImageController.show')
