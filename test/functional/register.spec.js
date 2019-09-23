@@ -1,7 +1,8 @@
-const { test, trait } = use('Test/Suite')('User registeration')
+const { test, trait } = use('Test/Suite')('User registration')
 const Factory = use('Factory')
 
 trait('Test/ApiClient')
+trait('DatabaseTransactions')
 
 test('it should return a user with success', async ({ assert, client }) => {
     const data = {

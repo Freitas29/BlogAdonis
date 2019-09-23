@@ -1,9 +1,10 @@
-const { test, trait } = use('Test/Suite')('User registeration')
+const { test, trait } = use('Test/Suite')('User session')
 const User = use('App/Models/User')
 const Factory = use('Factory')
-trait('Test/ApiClient')
 const Encryption = use('Encryption')
 
+trait('Test/ApiClient')
+trait('DatabaseTransactions')
 
 test('it should return JWT token when session created', async ({ assert, client }) => {
 
