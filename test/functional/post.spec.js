@@ -71,11 +71,6 @@ test('it should delete a post', async ({ client, assert}) => {
 
     await user.posts().save(userPost)
 
-    const session = await client
-    .post('/users/login')
-    .send({ email, password })
-    .end()
-
     const post = await client
     .delete(`/posts/${userPost.id}`)
     .send()
@@ -83,4 +78,24 @@ test('it should delete a post', async ({ client, assert}) => {
     .end()
 
     post.assertStatus(204)
+})
+
+test('it should get all posts', async ({ client, assert}) => {
+
+    const email = "aa@email.com"
+    const password = "123456"
+    
+    const user = await Factory.model('App/Models/User').create({ email, password })
+    const userPosts = await Factory.model('App/Models/Post').createMany(3)
+
+    const posts = await client
+    .get('/posts')
+    .send()
+    .loginVia(user, 'jwt')
+    .end()
+
+    const size = posts.body.length
+
+    assert.equal(userPosts[2].title, posts.body[size-1].title)
+    posts.assertStatus(200)
 })
