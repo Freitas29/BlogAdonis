@@ -112,7 +112,7 @@ class PostController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async destroy ({ params, request, response }) {
+  async destroy ({ params, request, response, auth }) {
     const post = await Post.findOrFail(params.id)
 
     if(post.user_id !== auth.user.id){

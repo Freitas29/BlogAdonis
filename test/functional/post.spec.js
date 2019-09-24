@@ -60,3 +60,27 @@ test('it should update a post', async ({ client, assert}) => {
     assert.equal(post.body.title, 'title updated')
     session.assertStatus(200)
 })
+
+test('it should delete a post', async ({ client, assert}) => {
+
+    const email = "matheus@email.com"
+    const password = "123456"
+    
+    const user = await Factory.model('App/Models/User').create({ email, password })
+    const userPost = await Factory.model('App/Models/Post').make()
+
+    await user.posts().save(userPost)
+
+    const session = await client
+    .post('/users/login')
+    .send({ email, password })
+    .end()
+
+    const post = await client
+    .delete(`/posts/${userPost.id}`)
+    .send()
+    .loginVia(user, 'jwt')
+    .end()
+
+    post.assertStatus(204)
+})
