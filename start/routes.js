@@ -20,12 +20,16 @@ Route.get('/', () => {
   return { greeting: 'Hello world in JSON' }
 })
 
-Route.resource('users', 'AuthenticateController').only(['store','update'])
-Route.post('users/login', 'AuthenticateController.login')
+//Private routes
 Route.resource('posts', 'PostController').apiOnly().middleware('auth')
 Route.post('posts/:id/images', 'ImageController.store').middleware('auth')
-Route.get('images/:path', 'ImageController.show')
 Route.resource('comments', 'CommentController').apiOnly().middleware('auth')
+Route.get('users/posts', 'UserController.index').middleware('auth')
+
+//Public routes
+Route.get('open/posts', 'PostOpenController.index')
+Route.resource('users', 'AuthenticateController').only(['store','update'])
+Route.post('users/login', 'AuthenticateController.login')
+Route.get('images/:path', 'ImageController.show')
 Route.post('forgot', 'ForgotPasswordController.store')
 Route.post('reset', 'ResetPasswordController.store')
-Route.get('users/posts', 'UserController.index').middleware('auth')
