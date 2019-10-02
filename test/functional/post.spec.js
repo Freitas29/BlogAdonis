@@ -5,6 +5,8 @@ const User = use('App/Models/User')
 
 trait('Test/ApiClient')
 trait('Auth/Client')
+trait('DatabaseTransactions')
+
 
 beforeEach(() => {
 
@@ -37,7 +39,7 @@ test('it should create a post', async ({ client, assert}) => {
 
 test('it should update a post', async ({ client, assert}) => {
 
-    const email = "luan@email.com"
+    const email = "edson@email.com"
     const password = "123456"
     const newTitle = 'title updated' 
     
@@ -63,7 +65,7 @@ test('it should update a post', async ({ client, assert}) => {
 
 test('it should delete a post', async ({ client, assert}) => {
 
-    const email = "matheus@email.com"
+    const email = "edson@email.com"
     const password = "123456"
     
     const user = await Factory.model('App/Models/User').create({ email, password })
@@ -82,7 +84,7 @@ test('it should delete a post', async ({ client, assert}) => {
 
 test('it should get all posts', async ({ client, assert}) => {
 
-    const email = "aa@email.com"
+    const email = "edson@email.com"
     const password = "123456"
     
     const user = await Factory.model('App/Models/User').create({ email, password })
