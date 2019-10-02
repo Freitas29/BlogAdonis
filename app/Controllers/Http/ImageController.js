@@ -7,7 +7,7 @@ class ImageController {
 
     async store ({ request, params }) {
         const post = await Post.findOrFail(params.id)
-
+        
         const image = request.file('image', {
             types: ['image'],
             size: '2mb'

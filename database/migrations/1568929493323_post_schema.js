@@ -15,9 +15,9 @@ class PostSchema extends Schema {
       .inTable('users')
       .onUpdate('CASCADE')
       .onDelete('CASCADE')
-      table.string('title').notNullable()
-      table.string('small_description').notNullable()
-      table.string('description').notNullable()
+      table.string('title', 30).notNullable()
+      table.string('small_description', 50).notNullable()
+      table.text('description').notNullable()
     })
   }
 
