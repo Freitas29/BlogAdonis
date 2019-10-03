@@ -20,7 +20,12 @@ class PostController {
    * @param {View} ctx.view
    */
   async index ({ request, response, view }) {
-    const posts = Post.query().with('image').fetch()
+    const { page } = request.only(['page'])
+    const posts = Post
+    .query()
+    .with('image')
+    .forPage(page, 2)
+    .fetch()
     return posts
   }
 

@@ -28,6 +28,7 @@ Route.get('users/posts', 'UserController.index').middleware('auth')
 
 //Public routes
 Route.get('open/posts', 'PostOpenController.index')
+Route.get('open/posts/:id', 'PostOpenController.show')
 Route.resource('users', 'AuthenticateController').only(['store','update'])
 Route.post('users/login', 'AuthenticateController.login')
 Route.get('images/:path', 'ImageController.show')
