@@ -22,7 +22,7 @@ class PostController {
   async index ({ request, response, view }) {
     const { page } = request.only(['page'])
     
-    const perPage = 2
+    const perPage = 6
 
     const posts = await Post
     .query()
