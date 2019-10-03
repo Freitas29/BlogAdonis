@@ -21,11 +21,14 @@ class PostController {
    */
   async index ({ request, response, view }) {
     const { page } = request.only(['page'])
-    const posts = Post
+    
+    const perPage = 2
+
+    const posts = await Post
     .query()
     .with('image')
-    .forPage(page, 2)
-    .fetch()
+    .paginate(page, perPage)
+
     return posts
   }
 
