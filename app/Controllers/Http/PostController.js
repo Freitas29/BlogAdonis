@@ -109,6 +109,10 @@ class PostController {
 
     const post = await Post.findOrFail(params.id)
     
+    if(post.user_id !== auth.user.id){
+      return response.status(401).send({error: "Not authorized"})
+    }
+
     post.merge(data)
 
     await post.save()
