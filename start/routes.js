@@ -23,6 +23,7 @@ Route.get('/', () => {
 //Private routes
 Route.resource('posts', 'PostController').apiOnly().middleware('auth')
 Route.post('posts/:id/images', 'ImageController.store').middleware('auth')
+Route.put('posts/:id/images', 'ImageController.update').middleware('auth')
 Route.resource('comments', 'CommentController').apiOnly().middleware('auth')
 Route.get('users/posts', 'UserController.index').middleware('auth')
 

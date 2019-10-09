@@ -73,8 +73,12 @@ class PostController {
    * @param {View} ctx.view
    */
   async show ({ params, request, response, view }) {
-    const post = await Post.findOrFail(params.id)
-
+    const post = await Post
+    .query()
+    .with('image')
+    .where('id', params.id)
+    .fetch()
+    
     return post
   }
 
@@ -109,7 +113,13 @@ class PostController {
 
     await post.save()
 
-    return post
+    const postImage = await Post
+    .query()
+    .with('image')
+    .where('id', post.id)
+    .fetch()
+    
+    return postImage
   }
 
   /**
